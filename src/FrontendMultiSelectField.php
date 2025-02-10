@@ -17,6 +17,20 @@ class FrontendMultiSelectField extends ListboxField
     private static $require_client = true;
 
     /**
+     * Should this field include a search function?
+     *
+     * @var bool 
+     */
+    protected $search = true;
+
+    /**
+     * Should this field include a "select all" option?
+     *
+     * @var bool 
+     */
+    protected $select_all = true;
+
+    /**
      * Creates a new dropdown field.
      *
      * @param string $name The field name
@@ -47,5 +61,45 @@ class FrontendMultiSelectField extends ListboxField
         }
 
         parent::Field($properties);
+    }
+
+    public function getAttributes()
+    {
+        $size = $this->getSize();
+        $attributes = [
+            'data-search' => $this->getSearch(),
+            'data-select-all' => $this->getSelectAll()
+        ];
+
+        if (!empty($size) && $size > 0) {
+            $attributes['data-max'] = (int)$size;
+        }
+
+        return array_merge(
+            parent::getAttributes(),
+            $attributes
+        );
+    }
+
+    public function getSearch(): bool
+    {
+        return $this->search;
+    }
+
+    public function setSearch($search): self
+    {
+        $this->search = $search;
+        return $this;
+    }
+
+    public function getSelectAll(): bool
+    {
+        return $this->select_all;
+    }
+
+    public function setSelectAll(bool $select_all): self
+    {
+        $this->select_all = $select_all;
+        return $this;
     }
 }
