@@ -1,8 +1,8 @@
 {
-    "name": "dft/silverstripe-frontent-multiselectfield",
+    "name": "dft/silverstripe-frontend-multiselectfield",
     "description": "A Silverstripe image gallery allowing multi image upload and automatic generation of thumbnail gallery with popups",
       "type": "silverstripe-vendormodule",
-      "homepage": "http://github.com/Dean-Forest-Tech/silverstripe-frontent-multiselectfield",
+      "homepage": "http://github.com/Dean-Forest-Tech/silverstripe-frontend-multiselectfield",
       "keywords": [
           "silverstripe",
           "forms",
@@ -18,7 +18,7 @@
           }
       ],
       "support": {
-          "issues": "http://github.com/Dean-Forest-Tech/-frontent-multiselectfield/issues"
+          "issues": "http://github.com/Dean-Forest-Tech/-frontend-multiselectfield/issues"
       },
       "require": {
           "silverstripe/framework": "^4 || ^5"
