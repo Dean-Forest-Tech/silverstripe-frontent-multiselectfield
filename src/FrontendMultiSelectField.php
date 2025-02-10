@@ -66,6 +66,8 @@ class FrontendMultiSelectField extends ListboxField
     public function getAttributes()
     {
         $size = $this->getSize();
+        $placeholder = $this->getAttribute('placeholder');
+
         $attributes = [
             'data-search' => $this->getSearch(),
             'data-select-all' => $this->getSelectAll()
@@ -73,6 +75,10 @@ class FrontendMultiSelectField extends ListboxField
 
         if (!empty($size) && $size > 0) {
             $attributes['data-max'] = (int)$size;
+        }
+
+        if (!empty($placeholder)) {
+            $attributes['data-placeholder'] = $placeholder;
         }
 
         return array_merge(
