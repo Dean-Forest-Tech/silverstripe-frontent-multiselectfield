@@ -73,21 +73,25 @@ class FrontendMultiSelectField extends ListboxField
     public function getAttributes()
     {
         $limit = $this->getLimit();
+        $search = $this->getSearch() === true ? "true" : "false";
+        $select = $this->getSelectAll() === true ? "true" : "false";
 
         $attributes = [
             'data-multi-select' => true,
-            'data-search' => $this->getSearch(),
-            'data-select-all' => $this->getSelectAll()
+            'data-search' => $search,
+            'data-select-all' => $select
         ];
 
         if ($limit > 0) {
             $attributes['data-max'] = (int)$limit;
         }
 
-        return array_merge(
+        $attributes = array_merge(
             parent::getAttributes(),
             $attributes
         );
+
+        return $attributes;
     }
 
     public function getSearch(): bool
