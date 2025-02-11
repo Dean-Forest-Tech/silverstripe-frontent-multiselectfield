@@ -31,6 +31,13 @@ class FrontendMultiSelectField extends ListboxField
     protected $select_all = true;
 
     /**
+     * Limit number of selections (zero disables this)
+     *
+     * @var int
+     */
+    protected $limit = 0;
+
+    /**
      * Creates a new dropdown field.
      *
      * @param string $name The field name
@@ -39,12 +46,12 @@ class FrontendMultiSelectField extends ListboxField
      * @param string|array|null $value You can pass an array of values or a single value like a drop down to be selected
      * @param int $size Optional size of the select element
      */
-    public function __construct($name, $title = '', $source = [], $value = null, $size = null)
-    {
-        if ($size) {
-            $this->setSize($size);
-        }
-
+    public function __construct(
+        $name,
+        $title = '',
+        $source = [],
+        $value = null
+    ) {
         parent::__construct($name, $title, $source, $value);
     }
 
@@ -56,29 +63,25 @@ class FrontendMultiSelectField extends ListboxField
         );
 
         if ($add_extra === true) {
-            Requirements::javascript('silverstripe-frontent-multiselectfield:client/dist/bundle.js');
-            Requirements::css('silverstripe-frontent-multiselectfield:client/dist/bundlecss.css');
+            Requirements::javascript('dft/silverstripe-frontend-multiselectfield:client/dist/bundle.js');
+            Requirements::css('dft/silverstripe-frontend-multiselectfield:client/dist/bundlecss.css');
         }
 
-        parent::Field($properties);
+        return parent::Field($properties);
     }
 
     public function getAttributes()
     {
-        $size = $this->getSize();
-        $placeholder = $this->getAttribute('placeholder');
+        $limit = $this->getLimit();
 
         $attributes = [
+            'data-multi-select' => true,
             'data-search' => $this->getSearch(),
             'data-select-all' => $this->getSelectAll()
         ];
 
-        if (!empty($size) && $size > 0) {
-            $attributes['data-max'] = (int)$size;
-        }
-
-        if (!empty($placeholder)) {
-            $attributes['data-placeholder'] = $placeholder;
+        if ($limit > 0) {
+            $attributes['data-max'] = (int)$limit;
         }
 
         return array_merge(
@@ -106,6 +109,17 @@ class FrontendMultiSelectField extends ListboxField
     public function setSelectAll(bool $select_all): self
     {
         $this->select_all = $select_all;
+        return $this;
+    }
+
+    public function getLimit(): int
+    {
+        return $this->limit;
+    }
+
+    public function setLimit(int $limit): self
+    {
+        $this->limit = $limit;
         return $this;
     }
 }
