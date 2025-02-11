@@ -232,7 +232,7 @@ class MultiSelect {
                 'afterbegin',
                 `<input
                 type="hidden"
-                name="${this.name}[]"
+                name="${this.name}"
                 value="${option.dataset.value}">`,
               )
 
